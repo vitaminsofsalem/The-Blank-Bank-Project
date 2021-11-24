@@ -19,4 +19,4 @@ export class Account {
 
 }
 
-export const TransactionSchema = SchemaFactory.createForClass(Account);
+export const AccountSchema = SchemaFactory.createForClass(Account);
