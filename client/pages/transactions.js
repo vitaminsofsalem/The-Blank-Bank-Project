@@ -1,5 +1,7 @@
 import React from "react";
 
 export default function transactions() {
-  return <div>{/* ADD LOGIC HERE */}</div>;
+  return <div>
+  <h1 style= {{textAlign: 'center'}}>Hello TRANSexuals!!!</h1>
+  </div> 
 }
