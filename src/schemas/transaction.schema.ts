@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, SchemaTypes, Types } from "mongoose";
+import { Document, ObjectId, SchemaTypes, Types } from "mongoose";
+import { Account } from "../schemas/account.schema"
 
 export type TransactionDocument = Transaction & Document;
 
