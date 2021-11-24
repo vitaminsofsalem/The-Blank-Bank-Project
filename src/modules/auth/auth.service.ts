@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   private ensureIsUniversityEmail(email: string) {
-    if (!email.includes("@giu-uni.de")) {
+    if (!email.endsWith("giu-uni.de")) {
       throw new HttpException(
         "Invalid university email, must include @giu-uni.de",
         HttpStatus.BAD_REQUEST
