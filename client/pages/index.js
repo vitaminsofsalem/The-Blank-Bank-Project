@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
-import Login from "../components/Login";
-import Dashboard from "../components/Dashboard";
-import Guest from "../components/Guest";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  const [accessToken, setAccessToken] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-    setAccessToken(token);
+    if (!token) {
+      router.replace("/register");
+    } else {
+      router.replace("/transactions");
+    }
   }, []);
 
-  return accessToken ? <Dashboard /> : <Guest />;
+  return <div />;
 }
