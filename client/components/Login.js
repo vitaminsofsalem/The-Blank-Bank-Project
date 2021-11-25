@@ -44,7 +44,9 @@ export default function Login() {
 
   return (
     <div className={styles.App}>
-      <h2>Sign In</h2>
+      <h1>
+        <b>Sign In</b>
+      </h1>
       <Form className={styles.form} onSubmit={handleSubmit}>
         <FormGroup>
           <Label className={styles.label} for="email">
