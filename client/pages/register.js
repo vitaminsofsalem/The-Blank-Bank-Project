@@ -129,7 +129,7 @@ export default function Register() {
             valid={confirmPasswordState === "has-success"}
             invalid={confirmPasswordState === "has-danger"}
           />
-          <FormFeedback>Passwords don't match.</FormFeedback>
+          <FormFeedback>Passwords dont match.</FormFeedback>
         </FormGroup>
         <Button color="primary">Submit</Button>
       </Form>
