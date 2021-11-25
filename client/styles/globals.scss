@@ -1,3 +1,4 @@
+@use 'colors';
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700&display=swap");
 
 html,
@@ -20,7 +21,7 @@ a {
 
 ::selection {
   color: white;
-  background: #2db78d;
+  background: colors.$bg-green;
 }
 
 *.unselectable {
@@ -47,13 +48,13 @@ a {
 }
 
 .bg-black {
-  background-color: #080f0f;
+  background-color: colors.$bg-black;
 }
 
 .bg-green-dark {
-  background-color: #27452c;
+  background-color: colors.$bg-green-dark;
 }
 
 .bg-green {
-  background-color: #2db78d;
+  background-color: colors.$bg-green;
 }

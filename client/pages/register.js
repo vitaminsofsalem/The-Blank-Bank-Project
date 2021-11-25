@@ -1,5 +1,5 @@
 import IntroSideContainer from "../components/IntroSideContainer";
-import styles from "../styles/RegisterLogin.module.css";
+import styles from "../styles/RegisterLogin.module.scss";
 import { Form, FormGroup, Input, Label } from "reactstrap";
 import { useState } from "react";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/RegisterLogin.module.css";
+import styles from "../styles/RegisterLogin.module.scss";
 import bankLogo from "../assets/bank-logo.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
