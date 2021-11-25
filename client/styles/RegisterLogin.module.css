@@ -1,0 +1,236 @@
+.parentContainer {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-family: Poppins;
+  overflow-x: hidden;
+}
+
+.introSideParentContainer {
+  width: 50%;
+  height: 100vh;
+  background-image: url("../assets/bg-image.png");
+  background-size: cover;
+  border-radius: 0px 20px 20px 0px;
+  filter: drop-shadow(4px 0px 10px rgba(0, 0, 0, 0.25));
+}
+
+.introSideInnerContainer {
+  position: absolute;
+  top: 90px;
+  bottom: 90px;
+  right: 90px;
+  left: 90px;
+  background-color: blue;
+  border-radius: 20px;
+  background: rgba(8, 15, 15, 0.8);
+  backdrop-filter: blur(20px);
+}
+
+.bankLogo {
+  width: 278px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+@keyframes drawLine {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100px;
+  }
+}
+
+.dividerLine {
+  width: 100px;
+  height: 2px;
+  margin-left: 30px;
+  margin-top: 15px;
+  animation-duration: 1s;
+  animation-name: drawLine;
+}
+
+@keyframes showText {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.introTitle {
+  color: white;
+  font-weight: 800;
+  font-size: 20px;
+  margin-left: 30px;
+  margin-top: 30px;
+  animation-name: showText;
+  animation-duration: 2s;
+}
+
+.introText {
+  color: white;
+  font-weight: 300;
+  font-size: 18px;
+  padding-right: 30px;
+  padding-left: 30px;
+  animation-name: showText;
+  animation-duration: 2s;
+}
+
+.noAccountContainer {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.noAccountText {
+  color: white;
+  font-weight: normal;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+.noAccountButtonText {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+@keyframes showContent {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loginButtonContainer {
+  color: "white";
+  width: 265px;
+  height: 265px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  animation-name: showContent;
+  animation-duration: 1s;
+}
+
+.loginButton {
+  color: "white";
+  width: 265px;
+  height: 265px;
+  background: #2db78d;
+  border-radius: 132.5px;
+  color: white;
+  font-weight: 600;
+  font-size: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(50px, 50px);
+  padding-bottom: 25px;
+  padding-right: 25px;
+  cursor: pointer;
+}
+
+.loginButton:hover {
+  background: transparent;
+  color: #2db78d;
+  border-width: 3px;
+  border-color: #2db78d;
+  border-style: solid;
+}
+
+.signInTitle {
+  font-weight: bold;
+  font-size: 48px;
+  color: #000000;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-left: 37px;
+  margin-top: 100px;
+  animation-name: showContent;
+  animation-duration: 2s;
+}
+
+.login {
+  flex: 50%;
+}
+
+.form {
+  margin-top: 60px;
+  max-height: 60vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 710px;
+  padding-left: 3px;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.input {
+  font-weight: normal;
+  width: 320px;
+  height: 46px;
+}
+
+@media (max-width: 1230px) {
+  .parentContainer {
+    flex-direction: column;
+  }
+
+  .introSideParentContainer {
+    width: 100%;
+    height: 600px;
+    border-radius: 0px 0px 20px 20px;
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+  }
+
+  .introSideInnerContainer {
+    top: 30px;
+    bottom: 30px;
+    right: 30px;
+    left: 30px;
+  }
+
+  .rightContainer {
+    min-height: 700px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .form {
+    max-height: 10000vh;
+    padding-bottom: 300px;
+  }
+}
