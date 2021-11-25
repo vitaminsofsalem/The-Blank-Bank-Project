@@ -64,8 +64,21 @@ export class AuthService {
     return await bcrypt.hash(password, this.HASH_SALT_ROUNDS);
   }
 
-  login(dto: LoginDto) {
-    //Return value should look like this at the end
-    // return { token: this.jwtService.sign({ id:userId }) };
+  async login(dto: LoginDto) {
+    const { email, password } = dto;
+    const user: User = await this.userModel.findOne({ email }).exec();
+
+    if (!user)
+      throw new HttpException("user does not exist", HttpStatus.NOT_FOUND);
+
+    const passwordIsCorrect: boolean = await bcrypt.compare(
+      password,
+      user.password
+    );
+
+    if (!passwordIsCorrect)
+      throw new HttpException("invalid password", HttpStatus.UNAUTHORIZED);
+
+    return this.jwtService.sign({ id: user.id });
   }
 }
