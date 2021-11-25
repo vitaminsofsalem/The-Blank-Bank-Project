@@ -17,7 +17,7 @@ export default function IntroSideContainer(props) {
         <h5 className={styles.introTitle}>The future of banking is here</h5>
         <p className={styles.introText}>
           Join now to experience banking like never before. The Blank Bank
-          introduces the future of banking systems
+          introduces the future of banking systems.
         </p>
         <div
           onClick={() => {
