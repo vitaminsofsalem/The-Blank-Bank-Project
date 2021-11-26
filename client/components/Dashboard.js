@@ -49,7 +49,6 @@ export default function Dashboard(props) {
     } catch (e) {
       if (e.response.data.statusCode === 401) {
         localStorage.removeItem("jwt");
-        router.replace("/");
       }
     }
   }, []);
@@ -68,9 +67,9 @@ export default function Dashboard(props) {
           </TableHead>
           <TableBody>
             {AccountsList.map((Account) => (
-              <StyledTableRow key={Account.accountNo}>
+              <StyledTableRow key={Account._id}>
                 <StyledTableCell align="left">
-                  {Account.accountNo}
+                  {Account._id}
                 </StyledTableCell>
                 <StyledTableCell align="left">
                   {Account.balance}
@@ -79,10 +78,10 @@ export default function Dashboard(props) {
                   <button
                     type="button"
                     onClick={() => {
-                      router.push(`/transactions/${Account.accountNo}`);
+                      router.push(`/transactions/${Account._id}`);
                     }}
                   >
-                    {Account.accountNo}
+                    {Account._id}
                   </button>
                 </StyledTableCell>
               </StyledTableRow>

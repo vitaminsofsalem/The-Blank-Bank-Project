@@ -6,6 +6,7 @@ export class AccountDto {
     constructor(acc: Account){
         Object.assign(this, acc)
     }
+    
     userID: Types.ObjectId;
     accountNo: Number;
     balance: number;
