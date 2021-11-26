@@ -2,6 +2,8 @@ import IntroSideContainer from "../components/IntroSideContainer";
 import styles from "../styles/RegisterLogin.module.scss";
 import { Form, FormGroup, Input, Label } from "reactstrap";
 import { useState } from "react";
+import { userLogin } from "../services/login";
+import { useRouter } from "next/router";
 
 /*
 
@@ -10,27 +12,52 @@ localStorage.setItem("jwt", JSON.stringify(token));
 router.replace("/");
 
 */
+
+const validateEmail = (email) => {
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/;
+  return emailPattern.test(email);
+};
+
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const router = useRouter();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name === "username") {
-      setUsername(value);
+    if (name === "email") {
+      setEmail(value);
     } else if (name === "password") {
       setPassword(value);
     }
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    if (!validateEmail(email)) {
+      setErrorMsg("please enter a valid email");
+      return;
+    }
+
+    if (!password) {
+      setErrorMsg("password can't be empty");
+      return;
+    }
+
+    userLogin({ email, password }).then((res) => {
+      if (!res.success) {
+        setErrorMsg(res.msg);
+      } else {
+        router.replace("/accounts");
+      }
+    });
   };
   return (
     <div className={`${styles.parentContainer}`}>
       <IntroSideContainer forSignIn={true} />
 
-      <div className={styles.loginButtonContainer}>
+      <div className={styles.loginButtonContainer} onClick={handleSubmit}>
         <div className={`${styles.loginButton} unselectable`}>Sign in</div>
       </div>
 
@@ -39,18 +66,18 @@ export default function Login() {
 
         <Form className={styles.form} onSubmit={handleSubmit}>
           <FormGroup>
-            <Label className={styles.label} for="username">
-              Username
+            <Label className={styles.label} for="email">
+              email
             </Label>
-
             <Input
               className={styles.input}
               type="text"
-              name="username"
-              id="username"
-              placeholder="Enter your username"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
               onChange={handleChange}
             />
+            <h6 className={styles.loginErrorMessage}>{errorMsg}</h6>
           </FormGroup>
 
           <FormGroup>

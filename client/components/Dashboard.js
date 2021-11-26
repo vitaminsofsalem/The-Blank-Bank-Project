@@ -68,9 +68,7 @@ export default function Dashboard(props) {
           <TableBody>
             {AccountsList.map((Account) => (
               <StyledTableRow key={Account._id}>
-                <StyledTableCell align="left">
-                  {Account._id}
-                </StyledTableCell>
+                <StyledTableCell align="left">{Account._id}</StyledTableCell>
                 <StyledTableCell align="left">
                   {Account.balance}
                 </StyledTableCell>

@@ -1,3 +1,4 @@
+@use 'colors';
 .parentContainer {
   position: absolute;
   width: 100%;
@@ -8,6 +9,12 @@
   align-items: flex-start;
   font-family: Poppins;
   overflow-x: hidden;
+}
+
+.loginErrorMessage {
+  color: colors.$error-color;
+  font-weight: 700;
+  padding: 10px;
 }
 
 .introSideParentContainer {
@@ -140,7 +147,7 @@
   color: "white";
   width: 265px;
   height: 265px;
-  background: #2db78d;
+  background: colors.$bg-green;
   border-radius: 132.5px;
   color: white;
   font-weight: 600;
@@ -156,9 +163,9 @@
 
 .loginButton:hover {
   background: transparent;
-  color: #2db78d;
+  color: colors.$bg-green;
   border-width: 3px;
-  border-color: #2db78d;
+  border-color: colors.$bg-green;
   border-style: solid;
 }
 
