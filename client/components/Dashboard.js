@@ -79,7 +79,7 @@ export default function Dashboard(props) {
                   <button
                     type="button"
                     onClick={() => {
-                      router.replace(`/transactions/${Account.accountNo}`);
+                      router.push(`/transactions/${Account.accountNo}`);
                     }}
                   >
                     {Account.accountNo}
