@@ -3,6 +3,13 @@ import styles from "../styles/RegisterLogin.module.scss";
 import { Form, FormGroup, Input, Label } from "reactstrap";
 import { useState } from "react";
 
+/*
+
+After login do this: 
+localStorage.setItem("jwt", JSON.stringify(token));  
+router.replace("/");
+
+*/
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

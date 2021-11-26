@@ -7,10 +7,11 @@ import {
 import { JwtService } from "@nestjs/jwt";
 import { InjectModel } from "@nestjs/mongoose";
 import { User } from "@sp/schemas";
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 import { LoginDto } from "./dtos/login.dto";
 import { RegisterDto } from "./dtos/register.dto";
 import * as bcrypt from "bcrypt";
+import { Account } from "src/schemas/account.schema";
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,8 @@ export class AuthService {
 
   constructor(
     private jwtService: JwtService,
-    @InjectModel(User.name) private readonly userModel: Model<User>
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(Account.name) private readonly accountModel: Model<Account>
   ) {}
 
   async register(dto: RegisterDto) {
@@ -57,7 +59,17 @@ export class AuthService {
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
+    await this.addDefaultAccount(result[0]._id);
     return result[0]._id;
+  }
+
+  private async addDefaultAccount(id: string) {
+    const account: Account = {
+      accountNo: Math.floor(Math.random() * 1000000000),
+      balance: 100,
+      userID: new Types.ObjectId(id),
+    };
+    this.accountModel.insertMany([account]);
   }
 
   private async hashPassword(password: string): Promise<string> {
