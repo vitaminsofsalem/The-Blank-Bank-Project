@@ -47,7 +47,7 @@ export default function Dashboard(props) {
         setList(AccOfUserID.data);
       });
     } catch (e) {
-      if (e.response.data.statusCode === 401) {
+      if (e.response && e.response.data.statusCode === 401) {
         localStorage.removeItem("jwt");
       }
     }
