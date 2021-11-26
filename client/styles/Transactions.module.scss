@@ -4,6 +4,7 @@
     min-height: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
     font-family: Poppins;
@@ -19,7 +20,15 @@
     border-radius: 30px;
     background-color: whitesmoke ;
 }
-.fontAwesome {
-    display: inline;
-    margin: 40px 0 0 1300px;
+.table {
+    max-width: auto;
+    margin: 0 47px 800px 47px;
+    justify-content: center;
+    align-self: center;
+}
+.debit {
+    color: rgba(250, 9, 9, 0.849);
+}
+.credit {
+    color: #2db78d;
 }
