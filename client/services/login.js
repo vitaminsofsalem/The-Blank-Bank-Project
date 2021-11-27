@@ -1,0 +1,13 @@
+import axios from "./apiService";
+
+export const userLogin = async (credentials) =>
+  axios
+    .post("/auth/login", credentials)
+    .then((res) => {
+      localStorage.setItem("jwt", res.data);
+      return { success: true, msg: "logged in" };
+    })
+    .catch((e) => ({
+      success: false,
+      msg: e.toString(), //e.response.data.message,
+    }));

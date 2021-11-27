@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const baseUrl = process.env.REACT_APP_API_URL;
+import baseURL from "../baseurl.config";
 
 // Request interceptor
 axios.interceptors.request.use(
@@ -14,7 +13,7 @@ axios.interceptors.request.use(
     };
 
     config.headers.common = headers;
-    config.baseURL = baseUrl;
+    config.baseURL = baseURL;
     return config;
   },
   function (error) {
