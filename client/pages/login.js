@@ -67,7 +67,7 @@ export default function Login() {
         <Form className={styles.form} onSubmit={handleSubmit}>
           <FormGroup>
             <Label className={styles.label} for="email">
-              email
+              Email
             </Label>
             <Input
               className={styles.input}

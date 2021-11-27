@@ -7,7 +7,7 @@ export default function Home() {
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
-      router.replace("/register");
+      router.replace("/login");
     } else {
       router.replace("/dashboard");
     }
