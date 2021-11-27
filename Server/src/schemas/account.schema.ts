@@ -12,7 +12,7 @@ export class Account {
     accountNo: Number;
 
     @Prop({ required: true })
-    balance: Number;
+    balance: 100;
 }
 
 export const AccountSchema = SchemaFactory.createForClass(Account);

@@ -1,5 +1,5 @@
 import Dashboard from "../components/Dashboard";
 
-export default function Accounts() {
+export default function Dashboard() {
   return <Dashboard />;
 }

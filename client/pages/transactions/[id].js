@@ -1,8 +1,12 @@
-import { Container, Row, Col, Button, Input, InputGroup, InputGroupText, InputGroupAddon, Table } from "reactstrap";
+import { 
+    Input,
+    Table,
+    Card
+} from "reactstrap";
 import styles from '../../styles/Transactions.module.scss'
 import 'font-awesome/css/font-awesome.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { useState } from "react";
+import ReactPaginate from 'react-paginate'
 
 export const getServerSideProps = async ({params}) => {
     const res = await fetch(`http://localhost:3001/transactions/${params.id}`)
@@ -15,15 +19,54 @@ export const getServerSideProps = async ({params}) => {
 
 
 const Details = ({trans}) => {
+
+    trans.map(transaction => {
+        const date = new Date(transaction.date)
+        return transaction.date = date.toUTCString()
+
+    })
+
+    // Get Current transactions per page and display
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const transPerPage = 10;
+    const pagesVisited = currentPage * transPerPage;
+    const displayTransactions = trans
+    .slice(pagesVisited, pagesVisited + transPerPage)
+    .map(transaction => (
+        <tr key={transaction._id}>
+            <td>{transaction.description}</td>
+            <td>{transaction.date}</td>
+            <td className={styles.debit}>- ${transaction.debit}</td>
+            <td className={styles.credit}>+ ${transaction.credit}</td>
+            <td>{transaction.balance}</td>
+        </tr>
+    ))
+
+    const pageCount = Math.ceil(trans.length / transPerPage);
+
+    const changePage = ({ selected }) => {
+        setCurrentPage(selected);
+    }
+
     return <>
-        <div className={styles.mainContainer}> 
-        <h1  className={styles.h1}>Transactions</h1>
-        <Input
-            className={styles.searchBox}
-            name=""
-            placeholder='Search...'
-            type='search'
-        />
+        <div className={styles.body}>
+        <div className={styles.parent}>
+        <div className={styles.child}>
+            <h1 className={`${styles.h1}`}><b>Transactions</b></h1>
+        </div>
+        <div className={styles.child}>
+            <Input
+                className={`${styles.searchBox}`}
+                name=""
+                placeholder='Search...'
+                type='search'
+            />
+        </div>
+  
+        </div>
+        <div>
+        <Card className={styles.card}>
         <Table className={styles.table}>
             <thead>
                 <tr>
@@ -35,30 +78,25 @@ const Details = ({trans}) => {
                 </tr>
             </thead>
             <tbody>
-                {trans.map(transaction => (
-                    <tr key={transaction._id}>
-                        <td>{transaction.description}</td>
-                        <td>{transaction.date}</td>
-                        <td className={styles.debit}>- ${transaction.debit}</td>
-                        <td className={styles.credit}>+ ${transaction.credit}</td>
-                        <td>{transaction.balance}</td>
-                    </tr>
-                ))}
+                {displayTransactions}
             </tbody>
         </Table>
-        {/* <div style={{textAlign: "center", marginTop: 25}}>
-            {!trans.length ? <h1>Invalid Id</h1> : trans.map(tranaction => (
-                <div style={{marginTop: 25}} key={tranaction.id}>  
-                    <p>date: {tranaction.date}</p>
-                    <p>description: {tranaction.description}</p>
-                    <p>debit: {tranaction.debit}</p>
-                    <p>credit: {tranaction.credit}</p>
-                    <p>balance: {tranaction.balance}</p>
-                    <hr></hr>
-                </div>
-            ))}
-        </div> */}
+        </Card>
         </div>
+
+        <ReactPaginate 
+            previousLabel={"<"}
+            nextLabel={">"}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={styles.paginationBtns}
+            previousLinkClassName={styles.previousBtn}
+            nextLinkClassName={styles.nextBtn}
+            disabledClassName={styles.paginationDisabled}
+            activeClassName={styles.paginationActive}
+        />
+    </div>
     </>
 }
 
