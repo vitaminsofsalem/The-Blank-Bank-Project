@@ -4,7 +4,7 @@ export const userLogin = async (credentials) =>
   axios
     .post("/auth/login", credentials)
     .then((res) => {
-      localStorage.setItem("jwt", res.data);
+      localStorage.setItem("jwt", JSON.stringify(res.data));
       return { success: true, msg: "logged in" };
     })
     .catch((e) => ({

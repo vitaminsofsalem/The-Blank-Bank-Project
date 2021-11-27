@@ -78,7 +78,7 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const { email, password } = dto;
-    const user: User = await this.userModel.findOne({ email }).exec();
+    const user = await this.userModel.findOne({ email }).exec();
 
     if (!user)
       throw new HttpException("user does not exist", HttpStatus.NOT_FOUND);
@@ -91,6 +91,6 @@ export class AuthService {
     if (!passwordIsCorrect)
       throw new HttpException("invalid password", HttpStatus.UNAUTHORIZED);
 
-    return this.jwtService.sign({ id: user.id });
+    return this.jwtService.sign({ id: user._id });
   }
 }

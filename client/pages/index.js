@@ -9,7 +9,7 @@ export default function Home() {
     if (!token) {
       router.replace("/register");
     } else {
-      router.replace("/accounts");
+      router.replace("/dashboard");
     }
   }, []);
 

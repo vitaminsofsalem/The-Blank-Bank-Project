@@ -49,7 +49,7 @@ export default function Login() {
       if (!res.success) {
         setErrorMsg(res.msg);
       } else {
-        router.replace("/accounts");
+        router.replace("/");
       }
     });
   };
