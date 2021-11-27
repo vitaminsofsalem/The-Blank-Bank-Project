@@ -7,6 +7,7 @@ import styles from '../../styles/Transactions.module.scss'
 import 'font-awesome/css/font-awesome.min.css';
 import { useEffect, useRef, useState } from "react";
 import ReactPaginate from 'react-paginate'
+import Highlighter from "react-highlight-words"
 
 export const getServerSideProps = async ({params}) => {
     const res = await fetch(`http://localhost:3001/transactions/${params.id}`)
@@ -27,6 +28,7 @@ const Details = ({trans}) => {
     })
 
     // Search Implemenation Below
+
     const [input, setInput] = useState("");
     const [output, setOutput] = useState([]);
 
@@ -35,6 +37,7 @@ const Details = ({trans}) => {
         displayTransactions.filter(val => {
             if(val.description.toLowerCase().includes(input.toLowerCase())){
                 setOutput(output => [...output,val])
+                console.log(input)
             }
         })
     }, [input])
@@ -95,7 +98,9 @@ const Details = ({trans}) => {
                     </tr>
                 )) : output.map(transaction => (
                     <tr key={transaction._id}>
-                    <td>{transaction.description}</td>
+                    <td className={transaction.description.includes(input) ? styles.highlight : ''}>
+                        {transaction.description}
+                    </td>
                     <td>{transaction.date}</td>
                     <td className={styles.debit}>- ${transaction.debit}</td>
                     <td className={styles.credit}>+ ${transaction.credit}</td>
