@@ -33,7 +33,7 @@ export class TransactionService {
     const account = await this.AccountModel.findOne({
       _id: accountId,
     });
-    if (account.userID !== new Types.ObjectId(userId)) {
+    if (account.userID.toString() !== userId) {
       throw new UnauthorizedException();
     }
   }

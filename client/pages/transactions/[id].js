@@ -5,15 +5,16 @@ import { useEffect, useRef, useState } from "react";
 import ReactPaginate from "react-paginate";
 import axios from "../../services/apiService";
 import Highlighter from "react-highlight-words";
+import { useRouter } from "next/router";
 
 const Details = () => {
   const [trans, setTrans] = useState([]);
+  const router = useRouter();
+  const id = router.query.id;
 
   useEffect(async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3001/transactions/${params.id}`
-      );
+      const res = await axios.get(`http://localhost:3001/transactions/${id}`);
       const data = res.data;
       setTrans(data);
     } catch (e) {
@@ -23,6 +24,7 @@ const Details = () => {
       }
     }
   }, []);
+
   trans.map((transaction) => {
     const date = new Date(transaction.date);
     return (transaction.date = date.toUTCString());
