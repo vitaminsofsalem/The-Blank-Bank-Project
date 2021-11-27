@@ -5,7 +5,7 @@ import {
 } from "reactstrap";
 import styles from '../../styles/Transactions.module.scss'
 import 'font-awesome/css/font-awesome.min.css';
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactPaginate from 'react-paginate'
 
 export const getServerSideProps = async ({params}) => {
@@ -26,6 +26,19 @@ const Details = ({trans}) => {
 
     })
 
+    // Search Implemenation Below
+    const [input, setInput] = useState("");
+    const [output, setOutput] = useState([]);
+
+    useEffect(() => {
+        setOutput([])
+        displayTransactions.filter(val => {
+            if(val.description.toLowerCase().includes(input.toLowerCase())){
+                setOutput(output => [...output,val])
+            }
+        })
+    }, [input])
+
     // Get Current transactions per page and display
 
     const [currentPage, setCurrentPage] = useState(0);
@@ -33,21 +46,13 @@ const Details = ({trans}) => {
     const pagesVisited = currentPage * transPerPage;
     const displayTransactions = trans
     .slice(pagesVisited, pagesVisited + transPerPage)
-    .map(transaction => (
-        <tr key={transaction._id}>
-            <td>{transaction.description}</td>
-            <td>{transaction.date}</td>
-            <td className={styles.debit}>- ${transaction.debit}</td>
-            <td className={styles.credit}>+ ${transaction.credit}</td>
-            <td>{transaction.balance}</td>
-        </tr>
-    ))
 
     const pageCount = Math.ceil(trans.length / transPerPage);
 
     const changePage = ({ selected }) => {
         setCurrentPage(selected);
     }
+    
 
     return <>
         <div className={styles.body}>
@@ -61,6 +66,8 @@ const Details = ({trans}) => {
                 name=""
                 placeholder='Search...'
                 type='search'
+                value={input}
+                onChange={e=>setInput(e.target.value)}
             />
         </div>
   
@@ -78,7 +85,23 @@ const Details = ({trans}) => {
                 </tr>
             </thead>
             <tbody>
-                {displayTransactions}
+                {input.length < 1 ? displayTransactions.map(transaction => (
+                    <tr key={transaction._id}>
+                    <td>{transaction.description}</td>
+                    <td>{transaction.date}</td>
+                    <td className={styles.debit}>- ${transaction.debit}</td>
+                    <td className={styles.credit}>+ ${transaction.credit}</td>
+                    <td>{transaction.balance}</td>
+                    </tr>
+                )) : output.map(transaction => (
+                    <tr key={transaction._id}>
+                    <td>{transaction.description}</td>
+                    <td>{transaction.date}</td>
+                    <td className={styles.debit}>- ${transaction.debit}</td>
+                    <td className={styles.credit}>+ ${transaction.credit}</td>
+                    <td>{transaction.balance}</td>
+                    </tr>
+                ))}
             </tbody>
         </Table>
         </Card>
