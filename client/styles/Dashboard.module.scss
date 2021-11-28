@@ -1,0 +1,10 @@
+@use 'colors';
+
+.dashboardContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  h1 {
+    font-weight: 700;
+  }
+}
