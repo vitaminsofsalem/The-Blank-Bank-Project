@@ -1,44 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import axios from "../services/apiService";
 import { useRouter } from "next/router";
-import { Button } from "reactstrap";
+import { getAccountData } from "../services/accounts";
+import NavBar from "../components/NavBar";
+import DialogBox from "../components/DialogBox";
+import styles from "../styles/Dashboard.module.scss";
+import { Container } from "reactstrap";
+import AccountsTable from "../components/AccountsTable";
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
+//Navbar props accepts
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-      fontSize: 28,
-    },
-  },
-}))(TableRow);
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 400,
-  },
-});
-
-export default function Dashboard(props) {
-  const classes = useStyles();
-  const [AccountsList, setList] = useState([]);
+const Dashboard = (props) => {
+  const [accountsList, setAccountsList] = useState([]);
+  const [viewSignOutDialog, setViewSignOutDialog] = useState(false);
 
   const router = useRouter();
 
@@ -47,59 +20,39 @@ export default function Dashboard(props) {
     router.replace("/");
   };
 
-  useEffect(async () => {
-    try {
-      await axios.get("http://localhost:3001/accounts").then((AccOfUserID) => {
-        setList(AccOfUserID.data);
-      });
-    } catch (e) {
-      if (e.response && e.response.data.statusCode === 401) {
-        signOut();
-      }
-    }
+  const navbarOptions = [
+    { key: 0, label: "accounts", action: null },
+    { key: 1, label: "Sign Out", action: () => setViewSignOutDialog(true) },
+  ];
+
+  const signOutOptions = [
+    { key: 0, label: "yes", action: signOut },
+    { key: 1, label: "no", action: () => setViewSignOutDialog(false) },
+  ];
+
+  useEffect(() => {
+    getAccountData().then((response) => {
+      console.log(response);
+      if (response.success) setAccountsList(response.data);
+      else if (response.data?.status == 401) router.push("/");
+    });
   }, []);
 
   return (
     <>
-      <h1 align="center"> Dashboard </h1>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="left">Account Number</StyledTableCell>
-              <StyledTableCell align="left">Balance</StyledTableCell>
-              <StyledTableCell align="left">Account Ledger</StyledTableCell>
-              <StyledTableCell align="left">
-                <Button color="danger" onClick={signOut}>
-                  Sign out
-                </Button>
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {AccountsList.map((Account) => (
-              <StyledTableRow key={Account._id}>
-                <StyledTableCell align="left">
-                  {Account.accountNo}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {Account.balance}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      router.push(`/transactions/${Account._id}`);
-                    }}
-                  >
-                    View transactions
-                  </button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {viewSignOutDialog && (
+        <DialogBox
+          message="are you sure you want to sign out?"
+          options={signOutOptions}
+        />
+      )}
+      <NavBar title="Dashboard" options={navbarOptions} />
+      <div className={styles.dashboardContainer}>
+        <h1>Accounts</h1>
+        <AccountsTable accounts={accountsList} />
+      </div>
     </>
   );
-}
+};
+
+export default Dashboard;
