@@ -108,14 +108,13 @@ const Details = () => {
                     ))
                   : output.map((transaction) => (
                       <tr key={transaction._id}>
-                        <td
-                          className={
-                            transaction.description.includes(input)
-                              ? styles.highlight
-                              : ""
-                          }
-                        >
-                          {transaction.description}
+                        <td>
+                        <Highlighter
+                            highlightClassName={styles.highlight}
+                            searchWords={[input]}
+                            textToHighlight={transaction.description}
+                            autoEscape={true}
+                          />
                         </td>
                         <td>{transaction.date}</td>
                         <td className={styles.debit}>- ${transaction.debit}</td>
