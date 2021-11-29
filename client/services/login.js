@@ -9,5 +9,5 @@ export const userLogin = async (credentials) =>
     })
     .catch((e) => ({
       success: false,
-      msg: e.response.data.message,
+      msg: e.response?.data.message,
     }));
