@@ -30,10 +30,6 @@ th {
 }
 
 *.unselectable {
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -62,4 +58,9 @@ th {
 
 .bg-green {
   background-color: colors.$bg-green;
+}
+
+.icon-loading {
+  margin: 12px;
+  transform: scale(0.7);
 }

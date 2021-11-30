@@ -1,3 +1,4 @@
+import LoadingIcons from "react-loading-icons";
 import IntroSideContainer from "../components/IntroSideContainer";
 import styles from "../styles/RegisterLogin.module.scss";
 import { Form, FormGroup, Input, Label } from "reactstrap";
@@ -22,6 +23,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -45,7 +47,11 @@ export default function Login() {
       return;
     }
 
-    userLogin({ email, password }).then((res) => {
+    const loginRes = userLogin({ email, password });
+    setLoading(true);
+
+    loginRes.then((res) => {
+      setLoading(false);
       if (!res.success) {
         setErrorMsg(res.msg);
       } else {
@@ -93,6 +99,7 @@ export default function Login() {
               placeholder="Enter your password"
               onChange={handleChange}
             />
+            {loading && <LoadingIcons.ThreeDots stroke="#113311" />}
           </FormGroup>
         </Form>
       </div>
