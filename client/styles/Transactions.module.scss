@@ -1,8 +1,9 @@
+@use 'colors';
+
 .parent {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    // background-color: pink;
     height: 8rem;
 
 }
@@ -25,23 +26,34 @@
 .searchBox {
     display: block;
     position: relative;
-    margin: 50px 0 0 30%;
+    margin: 40px 0 0 30%;
     height: 32%;
     width: 62%;
     border-radius: 30px;
-    background-color: rgb(250, 250, 250);
+    border: none;
+    color: grey;
+    background-color: colors.$bg-black;
+    box-shadow: 0px 0px 7px grey;
+}
+
+.searchBox:focus {
+    background-color: colors.$bg-black;
+    box-shadow: -10px -3px 1px #2db78ece;
+    color: grey;
 }
 
 .card {
     max-width: 95%;
+    border-radius: 20px;
     margin: 0 auto;
-    background-color: rgb(250, 250, 250);
+    background-color: colors.$bg-black;
+    box-shadow: 0px 0px 10px rgb(70, 70, 70);
 }
 
 .table {
+    color: grey;
     margin: 0 auto;
     max-width: 95%;
-    // background-color: yellow;
 }
 
 .debit {
@@ -65,19 +77,22 @@
     padding: 15px;
     margin: 8px;
     border-radius: 60px;
-    border: 2px solid #080f0f ;
-    color: #080f0f;
+    border: 2px solid #080f0f;
+    background-color: colors.$bg-black;
+    box-shadow: 0px 0px 7px grey;
+    color: colors.$bg-green;
     cursor: pointer;
 }
 
 .paginationBtns a:hover {
     color: whitesmoke;
-    background-color: #2db78d;
+    box-shadow: 0px 0px 10px #2db78eec;
+    background-color: colors.$bg-green;
 }
 
 .paginationActive a {
     color: whitesmoke;
-    background-color: #2db78d;
+    background-color: colors.$bg-green;
 }
 .previousBtn {
     text-decoration: none;
@@ -88,5 +103,6 @@
 }
 
 .highlight {
-    color: goldenrod;
+    background-color: rgba(218, 165, 32, 0.651);
+    color: gold;
 }
