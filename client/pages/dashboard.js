@@ -34,7 +34,9 @@ const Dashboard = (props) => {
     getAccountData().then((response) => {
       console.log(response);
       if (response.success) setAccountsList(response.data);
-      else if (response.data?.status == 401) router.push("/");
+      else if (response.data?.status == 401) {
+        signOut();
+      }
     });
   }, []);
 

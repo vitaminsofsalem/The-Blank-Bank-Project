@@ -1,6 +1,6 @@
 import axios from "./apiService";
 
-export const userLogin = async (credentials) =>
+export const userLogin = (credentials) =>
   axios
     .post("/auth/login", credentials)
     .then((res) => {
@@ -9,5 +9,5 @@ export const userLogin = async (credentials) =>
     })
     .catch((e) => ({
       success: false,
-      msg: e.response?.data.message,
+      msg: e.response,
     }));

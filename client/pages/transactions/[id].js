@@ -3,26 +3,26 @@ import styles from "../../styles/Transactions.module.scss";
 import "font-awesome/css/font-awesome.min.css";
 import { useEffect, useRef, useState } from "react";
 import ReactPaginate from "react-paginate";
-import axios from "../../services/apiService";
 import Highlighter from "react-highlight-words";
 import { useRouter } from "next/router";
+import { getTransactions } from "../../services/transactions";
 
 const Details = () => {
   const [trans, setTrans] = useState([]);
   const router = useRouter();
   const id = router.query.id;
 
-  useEffect(async () => {
-    try {
-      const res = await axios.get(`http://localhost:3001/transactions/${id}`);
-      const data = res.data;
-      setTrans(data);
-    } catch (e) {
-      if (e.response && e.response.data.statusCode === 401) {
+  useEffect(() => {
+    const handleApis = async () => {
+      const res = await getTransactions(id);
+      console.log(res);
+      if (res.success) setTrans(res.data);
+      else if (res.data?.status == 401) {
         localStorage.removeItem("jwt");
         router.replace("/");
       }
-    }
+    };
+    handleApis();
   }, []);
 
   trans.map((transaction) => {
@@ -109,7 +109,7 @@ const Details = () => {
                   : output.map((transaction) => (
                       <tr key={transaction._id}>
                         <td>
-                        <Highlighter
+                          <Highlighter
                             highlightClassName={styles.highlight}
                             searchWords={[input]}
                             textToHighlight={transaction.description}
