@@ -19,6 +19,7 @@ export default function IntroSideContainer(props) {
           Join now to experience banking like never before. The Blank Bank
           introduces the future of banking systems.
         </p>
+        <div className={styles.emptyFiller}></div>
         <div
           onClick={() => {
             if (forSignIn) {
@@ -29,7 +30,7 @@ export default function IntroSideContainer(props) {
           }}
           className={styles.noAccountContainer}
         >
-          <p className={styles.noAccountText}>
+          <p>
             {forSignIn ? "Don’t have an account?" : "Already have an account?"}
           </p>
           <p className={styles.noAccountButtonText}>
