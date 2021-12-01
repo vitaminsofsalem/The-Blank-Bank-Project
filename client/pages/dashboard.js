@@ -1,58 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getAccountData } from "../services/accounts";
 import NavBar from "../components/NavBar";
 import DialogBox from "../components/DialogBox";
-import styles from "../styles/Dashboard.module.scss";
-import { Container } from "reactstrap";
 import AccountsTable from "../components/AccountsTable";
+import Transactions from "../components/Transactions";
+import NavigatibleView from "../components/NavigatibleView";
+import AccountsView from "../components/AccountsView";
 
-//Navbar props accepts
+const SignOutDialog = (props) => {
+  const signOutOptions = [
+    { key: 0, label: "yes", action: props.handleConfirmation },
+    { key: 1, label: "no", action: () => props.setVisible(false) },
+  ];
+  return (
+    props.visible && (
+      <DialogBox
+        message="are you sure you want to sign out?"
+        options={signOutOptions}
+      />
+    )
+  );
+};
 
 const Dashboard = (props) => {
-  const [accountsList, setAccountsList] = useState([]);
-  const [viewSignOutDialog, setViewSignOutDialog] = useState(false);
-
-  const router = useRouter();
-
   const signOut = () => {
     localStorage.removeItem("jwt");
     router.replace("/");
   };
 
+  const router = useRouter();
+  const [viewSignOutDialog, setViewSignOutDialog] = useState(false);
+
   const navbarOptions = [
-    { key: 0, label: "accounts", action: null },
-    { key: 1, label: "Sign Out", action: () => setViewSignOutDialog(true) },
+    { key: 0, label: "accounts", action: null, selected: true },
+    {
+      key: 1,
+      label: "Sign Out",
+      action: () => setViewSignOutDialog(true),
+      selected: false,
+    },
   ];
-
-  const signOutOptions = [
-    { key: 0, label: "yes", action: signOut },
-    { key: 1, label: "no", action: () => setViewSignOutDialog(false) },
-  ];
-
-  useEffect(() => {
-    getAccountData().then((response) => {
-      console.log(response);
-      if (response.success) setAccountsList(response.data);
-      else if (response.data?.status == 401) {
-        signOut();
-      }
-    });
-  }, []);
 
   return (
     <>
-      {viewSignOutDialog && (
-        <DialogBox
-          message="are you sure you want to sign out?"
-          options={signOutOptions}
-        />
-      )}
+      <SignOutDialog
+        visible={viewSignOutDialog}
+        setVisible={setViewSignOutDialog}
+        handleConfirmation={signOut}
+      />
       <NavBar title="Dashboard" options={navbarOptions} />
-      <div className={styles.dashboardContainer}>
-        <h1>Accounts</h1>
-        <AccountsTable accounts={accountsList} />
-      </div>
+      <AccountsView />
     </>
   );
 };

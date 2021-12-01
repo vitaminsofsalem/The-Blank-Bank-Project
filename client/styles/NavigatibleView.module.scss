@@ -1,0 +1,31 @@
+@use 'colors';
+
+.viewContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  h1 {
+    font-weight: 700;
+  }
+}
+
+@mixin previousViewStyles {
+  font-size: 20px;
+  font-weight: 200;
+  color: colors.$bg-green;
+}
+
+@mixin currentViewStyles {
+  font-size: 40px;
+  font-weight: 700;
+  color: black;
+}
+
+.previousView {
+  @include previousViewStyles();
+  transition-duration: 1s;
+}
+.currentView {
+  @include currentViewStyles();
+  transition-duration: 1s;
+}

@@ -1,20 +1,19 @@
 import { Input, Table, Card } from "reactstrap";
-import styles from "../../styles/Transactions.module.scss";
+import styles from "../styles/Transactions.module.scss";
 import "font-awesome/css/font-awesome.min.css";
 import { useEffect, useRef, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Highlighter from "react-highlight-words";
 import { useRouter } from "next/router";
-import { getTransactions } from "../../services/transactions";
+import { getTransactions } from "../services/transactions";
 
-const Details = () => {
+const Transactions = (props) => {
   const [trans, setTrans] = useState([]);
   const router = useRouter();
-  const id = router.query.id;
 
   useEffect(() => {
     const handleApis = async () => {
-      const res = await getTransactions(id);
+      const res = await getTransactions(props.id);
       console.log(res);
       if (res.success) setTrans(res.data);
       else if (res.data?.status == 401) {
@@ -65,11 +64,7 @@ const Details = () => {
     <>
       <div className={styles.body}>
         <div className={styles.parent}>
-          <div className={styles.child}>
-            <h1 className={`${styles.h1}`}>
-              <b>Transactions</b>
-            </h1>
-          </div>
+          <div className={styles.child}></div>
           <div className={styles.child}>
             <Input
               className={`${styles.searchBox}`}
@@ -146,4 +141,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default Transactions;

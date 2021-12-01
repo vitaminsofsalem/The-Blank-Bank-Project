@@ -17,7 +17,7 @@ const NavBar = (props) => {
           </div>
           <div className={styles.verticalSeperator}></div>
           <a className={`navbar-brand ${styles.brand}`} href="#">
-            {props.title}
+            {props.options.find((o) => o.selected).label}
           </a>
           <button
             className="navbar-toggler"
@@ -31,15 +31,17 @@ const NavBar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            {props.options.map((l) => (
-              <a
-                className={`nav-link ${styles.selectableLabel}`}
-                key={l.key}
-                onClick={l.action}
-              >
-                {l.label}
-              </a>
-            ))}
+            {props.options
+              .filter((o) => !o.selected)
+              .map((l) => (
+                <a
+                  className={`nav-link ${styles.selectableLabel}`}
+                  key={l.key}
+                  onClick={l.action}
+                >
+                  {l.label}
+                </a>
+              ))}
             <div className="navbar-nav"></div>
           </div>
         </div>

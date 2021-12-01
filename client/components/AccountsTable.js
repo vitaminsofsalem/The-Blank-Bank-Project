@@ -1,9 +1,22 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Table } from "reactstrap";
+import { getAccountData } from "../services/accounts";
 
 const AccountsTable = (props) => {
   const router = useRouter();
+  const [accounts, setAccounts] = useState([]);
+  useEffect(() => {
+    getAccountData().then((response) => {
+      console.log(response);
+      if (response.success) setAccounts(response.data);
+      else if (response.data?.status == 401) {
+        localStorage.removeItem("jwt");
+        router.replace("/");
+      }
+    });
+  }, []);
+
   return (
     <>
       <Table hover>
@@ -15,12 +28,12 @@ const AccountsTable = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.accounts.map((a, i) => (
+          {accounts.map((a, i) => (
             <tr key={i}>
               <th scope="row">{a.balance}</th>
               <td>{a.accountNo}</td>
               <td>
-                <Button onClick={() => router.push(`/transactions/${a._id}`)}>
+                <Button onClick={() => props.handleTransactionSelect(a._id)}>
                   view transactions
                 </Button>
               </td>
