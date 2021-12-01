@@ -9,23 +9,33 @@
   }
 }
 
-@mixin previousViewStyles {
-  font-size: 20px;
-  font-weight: 200;
-  color: colors.$bg-green;
+.previousViewLabel {
+  width: 30%;
+  h1 {
+    font-size: 20px;
+    font-weight: 400;
+    color: colors.$bg-green;
+    cursor: pointer;
+  }
+  .underline {
+    transition-duration: 0.5s;
+    padding: 0px;
+    margin-top: -6px;
+    margin-left: 15px;
+    width: 0;
+    height: 5px;
+    background-color: colors.$bg-green;
+  }
 }
 
-@mixin currentViewStyles {
+.previousViewLabel:hover {
+  .underline {
+    width: 67px;
+  }
+}
+
+.currentViewLabel {
   font-size: 40px;
   font-weight: 700;
   color: black;
-}
-
-.previousView {
-  @include previousViewStyles();
-  transition-duration: 1s;
-}
-.currentView {
-  @include currentViewStyles();
-  transition-duration: 1s;
 }
