@@ -9,5 +9,5 @@ export const userLogin = (credentials) =>
     })
     .catch((e) => ({
       success: false,
-      msg: e.response,
+      msg: e.response?.data.message ? e.response.data.message : "unknown error",
     }));
