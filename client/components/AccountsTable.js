@@ -29,7 +29,7 @@ const AccountsTable = (props) => {
           <tr>
             <th>Balance</th>
             <th>Account No.</th>
-            <th>view transactions</th>
+            <th>View transactions</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@ const AccountsTable = (props) => {
               <td>{a.accountNo}</td>
               <td>
                 <Button onClick={() => props.handleTransactionSelect(a._id)}>
-                  view transactions
+                  View transactions
                 </Button>
               </td>
             </tr>
