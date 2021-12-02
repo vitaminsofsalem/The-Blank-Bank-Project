@@ -1,17 +1,20 @@
 import { Input, Table, Card } from "reactstrap";
 import styles from "../styles/Transactions.module.scss";
 import "font-awesome/css/font-awesome.min.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Highlighter from "react-highlight-words";
 import { useRouter } from "next/router";
 import { getTransactions } from "../services/transactions";
 import LoadingIcons from "react-loading-icons";
+import { toggleClass } from "dom-helpers";
 
 const Transactions = (props) => {
   const [trans, setTrans] = useState([]);
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+// Fetch Transactions from DB
 
   useEffect(() => {
     setLoading(true);
@@ -27,6 +30,9 @@ const Transactions = (props) => {
     };
     handleApis();
   }, []);
+
+
+  // Format Date to UTC
 
   trans.map((transaction) => {
     const date = new Date(transaction.date);
@@ -68,17 +74,20 @@ const Transactions = (props) => {
     <>
       <div className={styles.body}>
         <div className={styles.parent}>
-          <div className={styles.child}></div>
           {loading && <LoadingIcons.ThreeDots stroke="#113311" />}
-          <div className={styles.child}>
-            <Input
-              className={`${styles.searchBox}`}
+          <div className={styles.searchBar}>
+            <input
+              className={`${styles.searchBar__input}`}
               name=""
               placeholder="Search..."
+              aria-label="search"
               type="search"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
+            <button className={styles.searchBar__button}>
+               <i className={`fa fa-search fa-10x ${styles.searchBar__icon}`}></i>
+            </button>
           </div>
         </div>
         <div>
