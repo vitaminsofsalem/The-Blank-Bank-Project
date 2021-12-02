@@ -2,12 +2,17 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Button, Table } from "reactstrap";
 import { getAccountData } from "../services/accounts";
+import LoadingIcons from "react-loading-icons";
 
 const AccountsTable = (props) => {
   const router = useRouter();
   const [accounts, setAccounts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     getAccountData().then((response) => {
+      setLoading(false);
       console.log(response);
       if (response.success) setAccounts(response.data);
       else if (response.data?.status == 401) {
@@ -41,6 +46,7 @@ const AccountsTable = (props) => {
           ))}
         </tbody>
       </Table>
+      {loading && <LoadingIcons.ThreeDots stroke="#113311" />}
     </>
   );
 };

@@ -6,14 +6,18 @@ import ReactPaginate from "react-paginate";
 import Highlighter from "react-highlight-words";
 import { useRouter } from "next/router";
 import { getTransactions } from "../services/transactions";
+import LoadingIcons from "react-loading-icons";
 
 const Transactions = (props) => {
   const [trans, setTrans] = useState([]);
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const handleApis = async () => {
       const res = await getTransactions(props.id);
+      setLoading(false);
       console.log(res);
       if (res.success) setTrans(res.data);
       else if (res.data?.status == 401) {
@@ -65,6 +69,7 @@ const Transactions = (props) => {
       <div className={styles.body}>
         <div className={styles.parent}>
           <div className={styles.child}></div>
+          {loading && <LoadingIcons.ThreeDots stroke="#113311" />}
           <div className={styles.child}>
             <Input
               className={`${styles.searchBox}`}

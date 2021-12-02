@@ -15,9 +15,12 @@ const NavigatibleView = (props) => {
 
   return (
     <>
-      <div className={styles.viewContainer}>
+      <div key={Math.random()} className={styles.viewContainer}>
         {props.previous && <PreviousButton />}
-        <h1 className={styles.currentViewLabel}>{props.current}</h1>
+        <h1 key={Math.random()} className={styles.currentViewLabel}>
+          {props.current}
+        </h1>
+
         {renderCurrentView()}
       </div>
     </>
