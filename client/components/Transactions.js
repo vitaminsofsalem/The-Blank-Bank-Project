@@ -14,7 +14,7 @@ const Transactions = (props) => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-// Fetch Transactions from DB
+  // Fetch Transactions from DB
 
   useEffect(() => {
     setLoading(true);
@@ -30,7 +30,6 @@ const Transactions = (props) => {
     };
     handleApis();
   }, []);
-
 
   // Format Date to UTC
 
@@ -74,7 +73,6 @@ const Transactions = (props) => {
     <>
       <div className={styles.body}>
         <div className={styles.parent}>
-          {loading && <LoadingIcons.ThreeDots stroke="#113311" />}
           <div className={styles.searchBar}>
             <input
               className={`${styles.searchBar__input}`}
@@ -86,7 +84,9 @@ const Transactions = (props) => {
               onChange={(e) => setInput(e.target.value)}
             />
             <button className={styles.searchBar__button}>
-               <i className={`fa fa-search fa-10x ${styles.searchBar__icon}`}></i>
+              <i
+                className={`fa fa-search fa-10x ${styles.searchBar__icon}`}
+              ></i>
             </button>
           </div>
         </div>
@@ -138,6 +138,7 @@ const Transactions = (props) => {
           </Card>
         </div>
 
+        {loading && <LoadingIcons.ThreeDots stroke="#113311" />}
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}
