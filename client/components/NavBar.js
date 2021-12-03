@@ -16,9 +16,6 @@ const NavBar = (props) => {
             <Image src={Logo} alt="bankLogo" />
           </div>
           <div className={styles.verticalSeperator}></div>
-          <a className={`navbar-brand ${styles.brand}`} href="#">
-            {props.options.find((o) => o.selected).label}
-          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -32,10 +29,9 @@ const NavBar = (props) => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             {props.options
-              .filter((o) => !o.selected)
               .map((l) => (
                 <a
-                  className={`nav-link ${styles.selectableLabel}`}
+                  className={`nav-link ${(l.selected)?styles.brand:styles.selectableLabel}`}
                   key={l.key}
                   onClick={l.action}
                 >
