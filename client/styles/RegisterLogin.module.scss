@@ -1,48 +1,4 @@
 @use 'colors';
-.parentContainer {
-  position: absolute;
-  width: 100%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  font-family: Poppins;
-  overflow-x: hidden;
-}
-
-.loginErrorMessage {
-  color: colors.$error-color;
-  font-weight: 700;
-  padding: 10px;
-}
-
-.introSideParentContainer {
-  width: 50%;
-  height: 100vh;
-  background-image: url("../assets/bg-image.png");
-  background-size: cover;
-  border-radius: 0px 20px 20px 0px;
-  filter: drop-shadow(4px 0px 10px rgba(0, 0, 0, 0.25));
-}
-
-.introSideInnerContainer {
-  position: absolute;
-  top: 90px;
-  bottom: 90px;
-  right: 90px;
-  left: 90px;
-  background-color: blue;
-  border-radius: 20px;
-  background: rgba(8, 15, 15, 0.8);
-  backdrop-filter: blur(20px);
-}
-
-.bankLogo {
-  width: 278px;
-  margin-left: 20px;
-  margin-top: 20px;
-}
 
 @keyframes drawLine {
   from {
@@ -51,15 +7,6 @@
   to {
     width: 100px;
   }
-}
-
-.dividerLine {
-  width: 100px;
-  height: 2px;
-  margin-left: 30px;
-  margin-top: 15px;
-  animation-duration: 1s;
-  animation-name: drawLine;
 }
 
 @keyframes showText {
@@ -74,48 +21,6 @@
   }
 }
 
-.introTitle {
-  color: white;
-  font-weight: 800;
-  font-size: 20px;
-  margin-left: 30px;
-  margin-top: 30px;
-  animation-name: showText;
-  animation-duration: 2s;
-}
-
-.introText {
-  color: white;
-  font-weight: 300;
-  font-size: 18px;
-  padding-right: 30px;
-  padding-left: 30px;
-  animation-name: showText;
-  animation-duration: 2s;
-}
-
-.noAccountContainer {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.noAccountText {
-  color: white;
-  font-weight: normal;
-  font-size: 18px;
-  margin-bottom: 0;
-}
-
-.noAccountButtonText {
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-}
-
 @keyframes showContent {
   0% {
     opacity: 0;
@@ -128,13 +33,116 @@
   }
 }
 
-.loginButtonContainer {
+.parentContainer {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-family: Poppins;
+  overflow-x: hidden;
+}
+
+@mixin centerAll {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginErrorMessage {
+  color: colors.$error-color;
+  font-weight: 700;
+  padding: 10px;
+}
+
+.introSideParentContainer {
+  @include centerAll();
+  width: 50%;
+  height: 100vh;
+  background-image: url("../assets/bg-image.png");
+  background-size: cover;
+  border-radius: 0px 20px 20px 0px;
+  filter: drop-shadow(4px 0px 10px rgba(0, 0, 0, 0.25));
+
+  .introSideInnerContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+    padding: 30px;
+    width: 80%;
+    height: 85%;
+    background-color: blue;
+    border-radius: 20px;
+    background: rgba(8, 15, 15, 0.8);
+    backdrop-filter: blur(20px);
+
+    .dividerLine {
+      width: 100px;
+      height: 6px;
+      margin-top: 15px;
+      animation-duration: 1s;
+      animation-name: drawLine;
+    }
+    .introTitle {
+      color: white;
+      font-weight: 800;
+      font-size: 20px;
+      margin-top: 30px;
+      animation-name: showText;
+      animation-duration: 2s;
+    }
+
+    .introText {
+      color: white;
+      font-weight: 300;
+      font-size: 18px;
+      animation-name: showText;
+      animation-duration: 2s;
+    }
+    .emptyFiller {
+      height: 100%;
+      width: 100%;
+    }
+
+    .noAccountContainer {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+
+      p {
+        color: white;
+        font-weight: normal;
+        font-size: 18px;
+        margin-bottom: 0;
+      }
+
+      .noAccountButtonText {
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.bankLogo {
+  width: 278px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+@mixin loginButtonProperties {
+  @include centerAll();
   color: "white";
   width: 265px;
   height: 265px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.loginButtonContainer {
+  @include loginButtonProperties();
   position: absolute;
   bottom: 0;
   right: 0;
@@ -144,17 +152,12 @@
 }
 
 .loginButton {
-  color: "white";
-  width: 265px;
-  height: 265px;
+  @include loginButtonProperties();
   background: colors.$bg-green;
   border-radius: 132.5px;
   color: white;
   font-weight: 600;
   font-size: 26px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   transform: translate(50px, 50px);
   padding-bottom: 25px;
   padding-right: 25px;
@@ -220,13 +223,6 @@
     height: 600px;
     border-radius: 0px 0px 20px 20px;
     filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
-  }
-
-  .introSideInnerContainer {
-    top: 30px;
-    bottom: 30px;
-    right: 30px;
-    left: 30px;
   }
 
   .rightContainer {

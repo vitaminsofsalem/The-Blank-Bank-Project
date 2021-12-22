@@ -32,7 +32,7 @@ const Dashboard = (props) => {
   const [viewSignOutDialog, setViewSignOutDialog] = useState(false);
 
   const navbarOptions = [
-    { key: 0, label: "accounts", action: null, selected: true },
+    { key: 0, label: "Accounts", action: null, selected: true },
     {
       key: 1,
       label: "Sign Out",

@@ -6,15 +6,21 @@ const NavigatibleView = (props) => {
     return props.views[props.current];
   };
 
+  const PreviousButton = () => (
+    <div className={styles.previousViewLabel} onClick={props.handlePrevSelect}>
+      <h1>{`< ${props.previous}`}</h1>
+      <div className={styles.underline}></div>
+    </div>
+  );
+
   return (
     <>
-      <div className={styles.viewContainer}>
-        <div onClick={props.handlePrevSelect}>
-          <h1 className={styles.previousView}>{`${props.previous ? "<" : ""} ${
-            props.previous
-          }`}</h1>
-        </div>
-        <h1 className={styles.currentView}>{props.current}</h1>
+      <div key={Math.random()} className={styles.viewContainer}>
+        {props.previous && <PreviousButton />}
+        <h1 key={Math.random()} className={styles.currentViewLabel}>
+          {props.current}
+        </h1>
+
         {renderCurrentView()}
       </div>
     </>
