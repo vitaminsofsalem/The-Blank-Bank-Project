@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards, Request } from "@nestjs/common";
+import { Controller, Get, Param, UseGuards, Request, Post, Body } from "@nestjs/common";
 import { isMongoId, IsMongoId } from "class-validator";
 import { ObjectId, Types } from "mongoose";
 import { Transaction } from "src/schemas/transaction.schema";
@@ -15,12 +15,21 @@ export class TransactionController {
   @Get("/:accountId")
   async getAllTransByAccountId(
     @Param("accountId", new ParseObjectIdPipe()) accountId: string,
-    @Request() req: any
+    // @Request() req: any
   ): Promise<Transaction[]> {
-    const userID = req.user.id;
+    // const userID = req.user.id;
     return await this.TransactionService.getAllTransByAccountId(
-      accountId,
-      userID
+      accountId
+      // userID
     );
+  }
+  
+  @UseGuards(AuthGuard("jwt"))
+  @Post("/:accountId/transfers")
+  async createTransByAccountId(
+    @Param("accountId", new ParseObjectIdPipe()) accountId: string,
+    @Body() dto: TransactionResponseDto
+  ) {
+    return await this.TransactionService.createTransByAccountId(accountId, dto);
   }
 }
