@@ -31,7 +31,6 @@ export class AuthService {
     this.ensureIsUniversityEmail(dto.email);
     const hashedPassword = await this.hashPassword(dto.password);
     const userId = await this.addUserToDB({ ...dto, password: hashedPassword });
-    console.log("TOKEN", this.jwtService.sign({ id: userId }));
     return { token: this.jwtService.sign({ id: userId }) };
   }
 
@@ -146,8 +145,6 @@ export class AuthService {
 
     if (!passwordIsCorrect)
       throw new HttpException("invalid password", HttpStatus.UNAUTHORIZED);
-
-    console.log("TOKEN", this.jwtService.sign({ id: user._id }));
 
     return this.jwtService.sign({ id: user._id });
   }
