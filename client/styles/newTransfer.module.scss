@@ -1,0 +1,53 @@
+@use 'colors';
+
+.label {
+  font-weight: 1000;
+}
+
+.input {
+  font-weight: normal;
+  width: 320px;
+  height: 46px;
+}
+
+.warning{
+  color: red;
+}
+
+@mixin centerAll {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin SendButtonProperties {
+  @include centerAll();
+  color: "white";
+  width: 265px;
+  height: 265px;
+  display: flex;
+}
+
+.SendButtonContainer {
+  @include SendButtonProperties();
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  animation-name: showContent;
+  animation-duration: 1s;
+}
+
+.SendButton {
+  @include SendButtonProperties();
+  background: colors.$bg-green;
+  border-radius: 132.5px;
+  color: white;
+  font-weight: 600;
+  font-size: 26px;
+  transform: translate(50px, 50px);
+  padding-bottom: 25px;
+  padding-right: 25px;
+  cursor: pointer;
+}
