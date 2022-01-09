@@ -8,10 +8,10 @@ const AccountsView = (props) => {
   const [currentView, setCurrentView] = useState("Accounts");
   const [previousView, setPreviousView] = useState("");
 
-  const handleTransferSelect = () => {
+  const handleTransferSelect = (accounts) => {
     setViews({
       ...views,
-      Transfer: <Transfer />,
+      Transfer: <Transfer accounts={accounts} />,
     });
     setPreviousView("Accounts");
     setCurrentView("Transfer");

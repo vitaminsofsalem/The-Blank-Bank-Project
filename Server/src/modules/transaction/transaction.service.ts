@@ -48,6 +48,12 @@ export class TransactionService {
     const receiverAccount = await this.AccountModel.findOne({
       accountNo: dto.receiverAccountNumber,
     });
+    if (!receiverAccount) {
+      throw new HttpException(
+        `Account: ${dto.receiverAccountNumber} not found`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
 
     await this.updateBalance(senderAccount, receiverAccount, dto.amount);
 

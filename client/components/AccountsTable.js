@@ -51,7 +51,7 @@ const AccountsTable = (props) => {
       {loading && <LoadingIcons.ThreeDots stroke="#113311" />}
       <div
         onClick={() => {
-          props.handleTransferSelect();
+          props.handleTransferSelect(accounts);
         }}
         className={`${styles.newTransfer} unselectable`}
       >
