@@ -35,10 +35,12 @@ export class TransactionService {
     });
   }
 
-  async findUserIdByAccountId(accountId: string) {
-    const userId = await this.AccountModel.findOne({
-      _id: accountId,
-    });
+  async findUserIdByAccountNo(accountNo: string) {
+    const userId = (
+      await this.AccountModel.findOne({
+        accountNo: accountNo,
+      })
+    ).userID;
     return userId;
   }
 

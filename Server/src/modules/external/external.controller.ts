@@ -4,6 +4,7 @@ import {
   Injectable,
   Get,
   Request,
+  Res,
   Post,
   Body,
   UseGuards,
@@ -18,6 +19,8 @@ import { TransferDto } from "../transaction/dto/transfer.dto";
 import { AxiosResponse } from "axios";
 import { AuthGuard } from "@nestjs/passport";
 import { ParseObjectIdPipe } from "src/pipes/parseObjectId.pipe";
+
+const BANK_SERVICES_ACCOUNT = "411363528409";
 
 @Controller("external")
 @Injectable()
@@ -46,20 +49,27 @@ export class ExternalController {
 
   @Post("/transfer")
   @HttpCode(201)
-  async externalTransferIn(@Body() dto: any) {
+  async externalTransferIn(@Body() dto: any, @Res() res) {
     if (!dto.receiverAccountNumber || !dto.amount || !dto.description)
-      throw new HttpException("missing fields", HttpStatus.BAD_REQUEST);
+      return res.json({ error: "missing fields" }).status(400);
 
-    const userId = this.transactionService.findUserIdByAccountId(
+    console.log(dto.receiverAccountNumber);
+    const userId = await this.transactionService.findUserIdByAccountNo(
       dto.receiverAccountNumber
     );
+    console.log(userId);
 
     if (!userId)
-      throw new HttpException(
-        "account number not found",
-        HttpStatus.BAD_REQUEST
-      );
+      return res.json({ error: "account number not found" }).status(400);
 
-    return;
+    this.transactionService.createTransByAccountId(
+      BANK_SERVICES_ACCOUNT,
+      dto as TransferDto,
+      userId.toString()
+    );
+
+    //TODO : limit amount to 50 and external fees
+
+    return res.json({ msg: "done" }).status(201);
   }
 }
