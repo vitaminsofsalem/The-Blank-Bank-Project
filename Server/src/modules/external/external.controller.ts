@@ -46,7 +46,11 @@ export class ExternalController {
     if (dto.amount > 50) throw new HttpException("amount exceeds 50", 400);
 
     if (res.status == 201) {
-      this.transactionService.createTransByAccountId(accountId, dto, userID);
+      await this.transactionService.createTransByAccountId(
+        accountId,
+        dto,
+        userID
+      );
 
       const extraFees: TransferDto = {
         receiverAccountNumber: BANK_SERVICES_ACCOUNT,
@@ -54,7 +58,7 @@ export class ExternalController {
         description: "external bank fees",
       };
 
-      this.transactionService.createTransByAccountId(
+      await this.transactionService.createTransByAccountId(
         accountId,
         extraFees,
         userID

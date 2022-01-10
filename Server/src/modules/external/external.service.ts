@@ -32,6 +32,7 @@ export class ExternalService {
         const res = await this.httpService.post(b, transferDto).toPromise();
         return res;
       } catch (e) {
+        console.log(e);
         if (e.response.data.error !== "account number not found") {
           throw new HttpException(e.response.data.error, e.response.status);
         }
