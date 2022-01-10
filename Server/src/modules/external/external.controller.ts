@@ -39,7 +39,7 @@ export class ExternalController {
     @Body() dto: TransferDto,
     @Param("accountId", new ParseObjectIdPipe()) accountId: string
   ) {
-    console.log("transfer out initiated");
+    console.log("transfer out Initiated");
     const userID = req.user.id;
     const res = await this.externalService.makeExternalTransfer(dto);
 

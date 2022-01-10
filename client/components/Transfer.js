@@ -102,7 +102,7 @@ const Transfer = (props) => {
     } else {
       try {
         const res = await axios.post(
-          `http://localhost:3001/external/transferout`,
+          `http://localhost:3001/external/transferout/${accountId}`,
           {
             receiverAccountNumber: recepientAccountNum,
             amount,
