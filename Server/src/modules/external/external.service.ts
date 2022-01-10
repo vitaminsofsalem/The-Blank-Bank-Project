@@ -5,11 +5,11 @@ import { AxiosResponse } from "axios";
 
 const THIRD_PARTY_ENDPOINTS = [
   //test APIS
-  "http://localhost:5000/success",
-  "http://localhost:5000/invalidtoken",
-  "http://localhost:5000/missingfields",
-  "http://localhost:5000/usernotfound",
-  "http://localhost:5000/amountexceeded",
+  "http://fht-rpi4.ddns.net/success",
+  "http://fht-rpi4.ddns.net/invalidtoken",
+  "http://fht-rpi4.ddns.net/missingfields",
+  "http://fht-rpi4.ddns.net/usernotfound",
+  "http://fht-rpi4.ddns.net/amountexceeded",
 ];
 
 @Injectable()
