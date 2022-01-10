@@ -12,7 +12,9 @@ import { TransactionModule } from "../transaction/transaction.module";
     HttpModule.register({
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + process.env.EXTERNAL_TRANSFER_JWT,
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTb25nIjoiV2hlcmVJc015SnV1bD8iLCJOYW1lIjoiTGlsX01hcmlrbyIsIkxpbmsiOiJodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PXEtWEg5MldpZTBVJmFiX2NoYW5uZWw9TG9maUNvd2JveSJ9.1i5RDEb4KW0wkDMXmcaqj5keueKoM8jxERLPhbav8F",
       },
     }),
   ],

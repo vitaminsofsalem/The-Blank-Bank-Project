@@ -42,34 +42,16 @@ export class ExternalController {
     console.log("transfer out initiated");
     const userID = req.user.id;
     const res = await this.externalService.makeExternalTransfer(dto);
-
-    if (dto.amount > 50) throw new HttpException("amount exceeds 50", 400);
-
     if (res.status == 201) {
       this.transactionService.createTransByAccountId(accountId, dto, userID);
-
-      const extraFees: TransferDto = {
-        receiverAccountNumber: BANK_SERVICES_ACCOUNT,
-        amount: 50,
-        description: "external bank fees",
-      };
-
-      this.transactionService.createTransByAccountId(
-        accountId,
-        extraFees,
-        userID
-      );
     }
 
-    return res.status;
+    return res;
   }
 
   @Post("/transfer")
   @HttpCode(201)
-  @UseGuards(AuthGuard("jwt-external"))
   async externalTransferIn(@Body() dto: any, @Res() res) {
-    console.log(dto as TransferDto);
-
     if (!dto.receiverAccountNumber || !dto.amount || !dto.description)
       return res.json({ error: "missing fields" }).status(400);
 
@@ -80,14 +62,13 @@ export class ExternalController {
     if (!userId)
       return res.json({ error: "account number not found" }).status(400);
 
-    if (dto.amount > 50)
-      return res.json({ error: "account exceeds 50" }).status(400);
-
     this.transactionService.createTransByAccountId(
       BANK_SERVICES_ACCOUNT,
       dto as TransferDto,
       userId.toString()
     );
+
+    this.externalService.makeExternalTransfer(dto as TransferDto)
 
     //TODO : limit amount to 50 and external fees
 
