@@ -1,32 +1,41 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, HttpException } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
 import { TransferDto } from "../transaction/dto/transfer.dto";
 import { AxiosResponse } from "axios";
+//const THIRD_PARTY_ENDPOINTS = [
+//  //test APIS
+//  "http://fht-rpi4.ddns.net/success",
+//  "http://fht-rpi4.ddns.net/invalidtoken",
+//  "http://fht-rpi4.ddns.net/missingfields",
+//  "http://fht-rpi4.ddns.net/usernotfound",
+//  "http://fht-rpi4.ddns.net/amountexceeded",
+//];
+//
 
 const THIRD_PARTY_ENDPOINTS = [
   //test APIS
-  "http://fht-rpi4.ddns.net/success",
-  "http://fht-rpi4.ddns.net/invalidtoken",
-  "http://fht-rpi4.ddns.net/missingfields",
+  //
   "http://fht-rpi4.ddns.net/usernotfound",
-  "http://fht-rpi4.ddns.net/amountexceeded",
+  "http://fht-rpi4.ddns.net/usernotfound",
+  "http://fht-rpi4.ddns.net/usernotfound",
+  "http://fht-rpi4.ddns.net/usernotfound",
+  "http://fht-rpi4.ddns.net/success",
 ];
 
 @Injectable()
 export class ExternalService {
   constructor(private httpService: HttpService) {}
 
-  // async makeExternalTransfer(
-  //   transferDto: TransferDto
-  // ): Promise<AxiosResponse<any>> {
-  //   const results: Promise<AxiosResponse<any>>[] = [];
-
-  //   for (const b of THIRD_PARTY_ENDPOINTS) {
-  //     results.push(this.httpService.post(b, transferDto).toPromise());
-  //   }
-
-  //   const resultsResolved = await Promise.all(results);
-
-  //   return resultsResolved[0];
-  // }
+  async makeExternalTransfer(transferDto: TransferDto) {
+    for (const b of THIRD_PARTY_ENDPOINTS) {
+      try {
+        const res = await this.httpService.post(b, transferDto).toPromise();
+        return res;
+      } catch (e) {
+        if (e.response.data.error !== "account number not found") {
+          throw new HttpException(e.response.data.error, e.response.status);
+        }
+      }
+    }
+  }
 }

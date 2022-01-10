@@ -35,6 +35,13 @@ export class TransactionService {
     });
   }
 
+  async findUserIdByAccountId(accountId: string) {
+    const userId = await this.AccountModel.findOne({
+      _id: accountId,
+    });
+    return userId;
+  }
+
   async createTransByAccountId(
     accountId: string,
     dto: TransferDto,
