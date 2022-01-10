@@ -583,6 +583,13 @@
     "semver" "^7.3.5"
     "tar" "^6.1.11"
 
+"@nestjs/axios@^0.0.4":
+  "integrity" "sha512-EXbidAhJYaDjEA+6N0SkERjHpjsh8cfeBuFmxaG5hjzUTDrGj3FVE/0cBxV0Nfa2I1qki6QzqGHmnx9mN3JONw=="
+  "resolved" "https://registry.npmjs.org/@nestjs/axios/-/axios-0.0.4.tgz"
+  "version" "0.0.4"
+  dependencies:
+    "axios" "0.24.0"
+
 "@nestjs/cli@^8.0.0":
   "integrity" "sha512-QXZ0fkybNEPUeP3wcWuFore8XVicrT76IYToHkc4PJ+kQ7/thQzpy5mqWGTalv83aNM5LKAjl5OTSBBrPiWrlg=="
   "resolved" "https://registry.npmjs.org/@nestjs/cli/-/cli-8.1.4.tgz"
@@ -1452,6 +1459,13 @@
   "integrity" "sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg=="
   "resolved" "https://registry.npmjs.org/at-least-node/-/at-least-node-1.0.0.tgz"
   "version" "1.0.0"
+
+"axios@^0.24.0", "axios@0.24.0":
+  "integrity" "sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.24.0.tgz"
+  "version" "0.24.0"
+  dependencies:
+    "follow-redirects" "^1.14.4"
 
 "axios@0.23.0":
   "integrity" "sha512-NmvAE4i0YAv5cKq8zlDoPd1VLKAqX5oLuZKs8xkJa4qi6RGn0uhCYFjWtHHC9EM/MwOwYWOs53W+V0aqEXq1sg=="

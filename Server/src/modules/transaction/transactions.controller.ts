@@ -16,10 +16,10 @@ import { AuthGuard } from "@nestjs/passport";
 import { TransferDto } from "./dto/transfer.dto";
 
 @Controller("transactions")
+@UseGuards(AuthGuard("jwt"))
 export class TransactionController {
   constructor(private readonly TransactionService: TransactionService) {}
 
-  @UseGuards(AuthGuard("jwt"))
   @Get("/:accountId")
   async getAllTransByAccountId(
     @Param("accountId", new ParseObjectIdPipe()) accountId: string,
@@ -32,7 +32,6 @@ export class TransactionController {
     );
   }
 
-  @UseGuards(AuthGuard("jwt"))
   @Post("/:accountId/transfers")
   async createTransByAccountId(
     @Param("accountId", new ParseObjectIdPipe()) accountId: string,
