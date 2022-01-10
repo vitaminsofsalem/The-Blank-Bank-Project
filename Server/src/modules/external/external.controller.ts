@@ -31,13 +31,15 @@ export class ExternalController {
     private externalService: ExternalService
   ) {}
 
-  @Post("/transferout")
+  @Post("/transferout/:accountId")
   @HttpCode(201)
+  @UseGuards(AuthGuard("jwt"))
   async externalTransferOut(
     @Request() req: any,
     @Body() dto: TransferDto,
     @Param("accountId", new ParseObjectIdPipe()) accountId: string
   ) {
+    console.log("transfer out initiated");
     const userID = req.user.id;
     const res = await this.externalService.makeExternalTransfer(dto);
     if (res.status == 201) {
