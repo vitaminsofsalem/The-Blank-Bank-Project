@@ -50,7 +50,7 @@ export class ExternalController {
 
       const extraFees: TransferDto = {
         receiverAccountNumber: BANK_SERVICES_ACCOUNT,
-        amount: 50,
+        amount: 5,
         description: "external bank fees",
       };
 
