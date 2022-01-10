@@ -100,7 +100,26 @@ const Transfer = (props) => {
         }
       }
     } else {
-      //Complete external transfer request
+      try {
+        const res = await axios.post(
+          `http://localhost:3001/external/transferout`,
+          {
+            receiverAccountNumber: recepientAccountNum,
+            amount,
+            description: message,
+          }
+        );
+        if (res.data?.status == 401) {
+          localStorage.removeItem("jwt");
+        }
+        router.replace("/");
+      } catch (e) {
+        if (e.response.data.message) {
+          showModal("Error", e.response.data.message);
+        } else {
+          showModal("Error", "An unknown error has occured, please try again");
+        }
+      }
     }
   };
 
