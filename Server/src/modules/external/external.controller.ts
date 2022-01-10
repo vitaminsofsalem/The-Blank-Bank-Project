@@ -10,13 +10,12 @@ import {
 import { TransactionService } from "../transaction/transaction.service";
 import { ExternalService } from "./external.service";
 import { TransferDto } from "../transaction/dto/transfer.dto";
-import { ExternalTransferDto } from "./dto/externalTransfer.dto";
 import { AxiosResponse } from "axios";
 import { AuthGuard } from "@nestjs/passport";
 
 @Controller("external")
 @Injectable()
-@UseGuards(AuthGuard("jwt-external"))
+//@UseGuards(AuthGuard("jwt-external"))
 export class ExternalController {
   constructor(
     private transactionService: TransactionService,
@@ -24,8 +23,10 @@ export class ExternalController {
   ) {}
 
   @Post("/transfer")
-  async externalTransfer(@Body() dto: ExternalTransferDto): string {
-    const res = await this.externalService.makeExternalTransfer(dto);
-    return res.data;
+  async externalTransfer(@Body() dto: TransferDto) {
+    console.log("EXTERNAL TRANSFER");
+    //const res = await this.externalService.makeExternalTransfer(dto);
+    //return res.data;
+    return "test";
   }
 }
