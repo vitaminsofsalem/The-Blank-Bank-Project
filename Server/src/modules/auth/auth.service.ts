@@ -53,7 +53,7 @@ export class AuthService {
     }
   }
 
-  private async addUserToDB(user: User): Promise<string> {
+  private async addUserToDB(user: User): Promise<Types.ObjectId> {
     const result = await this.userModel.insertMany([user]);
     if (!result[0]) {
       console.log("Failed to add user", user);
@@ -66,7 +66,7 @@ export class AuthService {
     return result[0]._id;
   }
 
-  private async addDefaultAccount(id: string) {
+  private async addDefaultAccount(id: Types.ObjectId) {
     //Ensure account number is unique and never used before
     let accountNum = Math.floor(
       100000000000 + Math.random() * 900000000000
@@ -85,46 +85,9 @@ export class AuthService {
     const account: Account = {
       accountNo: accountNum,
       balance: 100,
-      userID: new Types.ObjectId(id),
+      userID: id,
     };
     const accountRes = await this.accountModel.insertMany([account]);
-    // const accId = accountRes[0]._id;
-    // const transactions: Transaction[] = [
-    //   {
-    //     accountId: new Types.ObjectId(accId),
-    //     credit: 100,
-    //     debit: 0,
-    //     balance: 100,
-    //     date: new Date("November 25, 2021 03:24:00"),
-    //     description: "Initial deposit",
-    //   },
-    //   {
-    //     accountId: new Types.ObjectId(accId),
-    //     credit: 0,
-    //     debit: 50,
-    //     balance: 50,
-    //     date: new Date("November 26, 2021 07:05:00"),
-    //     description: "ATM withdrawl",
-    //   },
-    //   {
-    //     accountId: new Types.ObjectId(accId),
-    //     credit: 0,
-    //     debit: 50,
-    //     balance: 0,
-    //     date: new Date("November 27, 2021 09:47:00"),
-    //     description: "Purchase at: Grocery store",
-    //   },
-    //   {
-    //     accountId: new Types.ObjectId(accId),
-    //     credit: 100,
-    //     debit: 0,
-    //     balance: 100,
-    //     date: new Date("November 27, 2021 18:33:00"),
-    //     description: "Deposit at ATM",
-    //   },
-    // ];
-
-    // await this.transactionModel.insertMany(transactions.reverse());
   }
 
   private async hashPassword(password: string): Promise<string> {
